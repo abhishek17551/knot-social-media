@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useSignupHandler } from "./hooks/useSignupHandler";
 import { Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, IconButton, Input, InputGroup, InputRightElement, useColorModeValue } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { inputLeftWrapper, inputRightWrapper, inputWrapper } from "../../../styles/formStyle";
 
 const SignupForm = () => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ const SignupForm = () => {
     const [show,setShow] = useState(false)
     const {signUpHandler,formData, errorData, formDispatch, errorDispatch } = useSignupHandler()
 
-    const handleClick = () => setShow(false)
+    const handleClick = () => setShow(!show)
 
     useEffect(() => {
         authToken &&
@@ -20,20 +21,28 @@ const SignupForm = () => {
       }, [authToken]);
 
     return (
-        <Flex>
-            <Flex>
-                <Heading>Knot media</Heading>
-                <Heading>Sign Up!</Heading>
-                <form onSubmit={(e) => signUpHandler(e)} noValidate>
+        <Flex justifyContent="center">
+            <Flex
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        rowGap="4"
+                        margin="4"
+                        width={{ base: "90%", md: "30%" }}
+            >
+                <Heading size='lg'>Knot media</Heading>
+                <Heading size="md">Sign Up!</Heading>
+                <form onSubmit={(e) => signUpHandler(e)} noValidate style={{ width: "100%" }}>
                     <FormControl 
                         id='first-name'
                         width='100%'
                         isRequired
                         isInvalid={errorData.firstName.length > 0}
                         marginY='1.5'
+                        {...inputWrapper}
                     >
-                        <FormLabel>First Name :</FormLabel>
-                        <Flex>
+                        <FormLabel {...inputLeftWrapper}>First Name :</FormLabel>
+                        <Flex flexDirection='column' {...inputRightWrapper}>
                             <Input
                             value={formData.firstName}
                             onChange={(e) => formDispatch({
@@ -59,9 +68,10 @@ const SignupForm = () => {
                         marginY='1.5'
                         isRequired
                         isInvalid={errorData.lastName.length > 0}
+                        {...inputWrapper}
                     >
-                        <FormLabel>Last Name :</FormLabel>
-                        <Flex>
+                        <FormLabel {...inputLeftWrapper}>Last Name :</FormLabel>
+                        <Flex flexDirection="column" {...inputRightWrapperStyle}>
                             <Input
                                 value={formData.lastName}
                                 onChange={(e) => formDispatch({
@@ -87,9 +97,10 @@ const SignupForm = () => {
                         marginY='1.5'
                         isRequired
                         isInvalid={errorData.username.length > 0}
+                        {...inputWrapper}
                     >
-                        <FormLabel>Username :</FormLabel>
-                        <Flex>
+                        <FormLabel {...inputLeftWrapper}>Username :</FormLabel>
+                        <Flex flexDirection="column" {...inputRightWrapper}> 
                             <Input
                                 value={formData.username}
                                 onChange={(e) =>
@@ -119,9 +130,10 @@ const SignupForm = () => {
                         marginY='1.5'
                         isRequired
                         isInvalid={errorData.email.length > 0}
+                        {...inputWrapper}
                     >
-                        <FormLabel>Email Address : </FormLabel>
-                        <Flex>
+                        <FormLabel {...inputLeftWrapper}>Email Address : </FormLabel>
+                        <Flex flexDirection="column" {...inputRightWrapper}> 
                             <Input
                                 value={formData.email}
                                 type="email"
@@ -150,11 +162,12 @@ const SignupForm = () => {
                         width='100%'
                         marginY='1.5'
                         isRequired
-                        isInvalid= {errorData.password.length > 0}    
+                        isInvalid= {errorData.password.length > 0} 
+                        {...inputWrapper}   
                     >
-                        <FormLabel>Password :</FormLabel>
-                        <Flex>
-                            <InputGroup>
+                        <FormLabel {...inputLeftWrapper}>Password :</FormLabel>
+                        <Flex flexDirection="column" {...inputRightWrapper}>
+                            <InputGroup size="md">
                             <Input
                                value={formData.password}
                                type={show ? "text" : "password"}
