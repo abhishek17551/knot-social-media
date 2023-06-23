@@ -13,13 +13,13 @@ const postLoginData = (username, password) =>
         username,password
     })
 
-const addBookmark = (postId, authorization) => 
+const addBookmarkToServer = (postId, authorization) => 
     axios.post(`/api/users/bookmark/${postId}`, {} ,
     {
         headers : {authorization}
     })
 
-const removeBookmark = (postId, authorization) => 
+const removeBookmarkFromServer = (postId, authorization) => 
 axios.post(
     `/api/users/remove-bookmark/${postId}`,
     {},
@@ -30,6 +30,6 @@ axios.post(
 export {
     postSignUpData,
     postLoginData,
-    addBookmark,
-    removeBookmark
+    addBookmarkToServer,
+    removeBookmarkFromServer
 }
