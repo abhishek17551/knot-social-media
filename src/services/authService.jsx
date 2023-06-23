@@ -27,9 +27,16 @@ axios.post(
       headers: { authorization },
     })
 
+const editUser = (userData,authorization) => 
+    axios.post("/api/users/edit", {userData}, 
+    { 
+        headers : {authorization}
+    })
+
 export {
     postSignUpData,
     postLoginData,
     addBookmarkToServer,
-    removeBookmarkFromServer
+    removeBookmarkFromServer,
+    editUser
 }
