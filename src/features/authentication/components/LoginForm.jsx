@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import { loginUser } from "../authenticationSlice"
 import { toast } from "react-toastify"
-import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, IconButton, Input, InputAddon, InputGroup, InputRightElement } from "@chakra-ui/react"
+import { Box, Button, Flex, FormControl, FormErrorMessage, FormLabel, Heading, IconButton, Input, InputAddon, InputGroup, InputRightElement, useColorModeValue } from "@chakra-ui/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const LoginForm = () => {
@@ -46,15 +46,28 @@ const LoginForm = () => {
     }
 
     return (
-        <Flex>
-            <Flex>
-                <Image/>
+        <Flex justifyContent='space-between' alignItems='center' width='100%'>
+            <Flex justifyContent='center' alignItems='center' height='100vh' width='50vw' display={{base:'none', md:'flex'}} backgroundColor={useColorModeValue('#EEDCDC', '#95F0E8')}>
+                <Image alt='knot-media-phone'/>
             </Flex>
 
-            <Flex>
-                <Flex>
-                    <Heading>Knot Media</Heading>
-                    <form onSubmit={loginHandler} noValidate>
+            <Flex
+                justifyContent='center'
+                alignItems='center'
+                flexDirection='column'
+                width={{base:'100%', md:'50vw'}}
+            >
+                <Flex
+                    justifyContent='center'
+                    alignItems='center'
+                    flexDirection='column'
+                    margin='4'
+                    marginTop='7'
+                    rowGap='5'
+                    width={{base:'90vw', md:'32.5vw'}} 
+                >
+                    <Heading size='lg'>Knot Media</Heading>
+                    <form onSubmit={loginHandler} noValidate style={{width:'100%'}}>
                         <FormControl
                             id="user-name"
                             isRequired
@@ -96,6 +109,7 @@ const LoginForm = () => {
                                 />
                                 <InputRightElement>
                                     <IconButton
+                                        size='sm'
                                         onClick={handleClick}   
                                         variant='iconButton' 
                                     >
@@ -107,16 +121,24 @@ const LoginForm = () => {
                             </InputGroup>
                             <FormErrorMessage>Please enter Password...</FormErrorMessage>
                         </FormControl>
-                        <Button variant='solidPrimary' type="submit">
+                        <Button variant='solidPrimary' type="submit" width='100%' marginY='2.5'>
                             Login
                         </Button>
-                        <Button variant='outline' onClick={(e) => loginHandler(e,setLoginData,setErrorData,null)}>
-                                Login As Guest
+                        <Button 
+                            width='100%'
+                            marginY='2.5'
+                            variant='outline' 
+                            _hover={{
+                                background : useColorModeValue("blue.800", "blue.400"),
+                                color : useColorModeValue("whiteAlpha.800", 'gray.800')
+                            }}
+                            onClick={(e) => loginHandler(e,setLoginData,setErrorData,null)}>
+                            Login As Guest
                         </Button>
                     </form>
                     {
                         errorData && (
-                            <Box>
+                            <Box color="red.600">
                                 <FontAwesomeIcon icon='circle-exclamation'/>
                                 <span>Entered Email or Password is incorrect.</span>
                             </Box>
@@ -124,7 +146,15 @@ const LoginForm = () => {
                     }
                     <Flex>
                         <span>Do not have an account?</span>
-                        <Button variant='link' onClick={() => navigate("/signup", {state:location.state, replace=true})}>Sign Up Here!</Button>
+                        <Button 
+                            variant='link'
+                            display='inline'
+                            marginLeft='2.5'
+                            textDecoration='underline'
+                            fontSize='1.25rem' 
+                            onClick={() => navigate("/signup", {state:location.state, replace=true})}>
+                            Sign Up Here!
+                        </Button>
                     </Flex>
                 </Flex>
             </Flex>
@@ -133,4 +163,4 @@ const LoginForm = () => {
 
 }
 
-exprt {LoginForm}
+export {LoginForm}
