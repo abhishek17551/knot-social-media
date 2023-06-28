@@ -7,6 +7,8 @@ import { Avatar, Box, Button, Divider, Flex, Heading, IconButton, Link, Tooltip 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DisplayPost } from "../../components/DisplayPost"
 import { postCardStyle } from "../../../styles"
+import { FollowersModal } from "./FollowersModal"
+import { FollowingModal } from "./FollowingModal"
 
 const ProfileCard = () => {
     const {username} = useParams()
@@ -128,7 +130,8 @@ const ProfileCard = () => {
                                 </Flex>
                                 <Flex flexWrap="wrap" justifyContent="space-between">
                                     <Button variant="link">{postsDetails.length} posts</Button>
-                                    {/* Following modal here */}
+                                    <FollowersModal followersList={profileDetails.follwers}/>
+                                    <FollowingModal followingList={profileDetails.following}/>
                                 </Flex>
                             </Flex>
                         </Flex>
