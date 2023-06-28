@@ -6,6 +6,7 @@ import { followUser, unfollowUser } from "../../../services/followService"
 import { Avatar, Box, Button, Divider, Flex, Heading, IconButton, Link, Tooltip } from "@chakra-ui/react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DisplayPost } from "../../components/DisplayPost"
+import { postCardStyle } from "../../../styles"
 
 const ProfileCard = () => {
     const {username} = useParams()
@@ -49,22 +50,26 @@ const ProfileCard = () => {
                     <Loader/>
                 ) : (
                    <>
-                    <Flex>
-                        <Flex>
+                    <Flex
+                        {...postCardStyle}
+                        boxShadow="none"
+                        width={{ base: "90vw", md: "85%", lg: "32.25rem" }}
+                    >
+                        <Flex  marginTop="1.25" width="100%" padding="2.25">
                             <Avatar
                                 src={profileDetails?.avatarUrl}
                                 size="lg"
                                 name={profileDetails.firstName}
                             />
-                            <Flex>
-                                <Flex>
-                                    <Flex>
+                            <Flex flexDirection="column" width="100%" margin="2.25"  rowGap="1">
+                                <Flex flexWrap="wrap" justifyContent="space-between" >
+                                    <Flex flexDirection="column">
                                         <Text>{`${profileDetails.firstName} ${profileDetails.lastName}`}</Text>
                                         <Text>{`@${profileDetails.username}`}</Text>
                                     </Flex>
                                     {
                                         authUser.username === profileDetails.username && (
-                                            <Flex>
+                                            <Flex alignItems="center">
                                                 {/* UpdateProfileForm here */}
                                                 <Tooltip>
                                                     <IconButton
@@ -94,7 +99,7 @@ const ProfileCard = () => {
                                     profileDetails.bio && 
                                     <Text>{profileDetails.bio}</Text>
                                 }
-                                <Flex>
+                                <Flex flexWrap="wrap" justifyContent="space-between">
                                     {
                                         profileDetails.website && (
                                             <Link
@@ -121,7 +126,7 @@ const ProfileCard = () => {
                                         </span>
                                     </Box>
                                 </Flex>
-                                <Flex>
+                                <Flex flexWrap="wrap" justifyContent="space-between">
                                     <Button variant="link">{postsDetails.length} posts</Button>
                                     {/* Following modal here */}
                                 </Flex>
@@ -129,14 +134,19 @@ const ProfileCard = () => {
                         </Flex>
                         <Divider/>
                     </Flex>
-                    <Flex>
+                    <Flex
+                        justifyContent='center'
+                        alignItems='center'
+                        flexDirection='column'
+                        width='100%'
+                    >
                         {
                             postsDetails.length > 0 ? (
                                 postsDetails.map((post) => (
                                     <DisplayPost key={post._id} post={post}/>
                                 ))
                             ) : (
-                                <Heading>
+                                <Heading textAlign="center" paddingTop='3.5'>
                                     No Posts Yet!
                                 </Heading>
                             )
