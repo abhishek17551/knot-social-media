@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const followUser = (followUserId, authorization) => {
+const followUserInServer = (followUserId, authorization) => {
     return axios.post(`/api/users/follow/${followUserId}`, {}, {headers : {authorization}})
 }
 
-const unfollowUser = (followUserId, authorization) => {
+const unfollowUserInServer = (followUserId, authorization) => {
     return axios.post(`/api/users/unfollow/${followUserId}`, {}, {headers : {authorization}})
 }
 
