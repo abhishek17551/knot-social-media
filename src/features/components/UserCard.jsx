@@ -9,21 +9,30 @@ const UserCard = ({user, followButton, onClose, gap}) => {
 
     return (
         <>
-            <Flex>
+            <Flex
+                justifyContent='flex-start'
+                alignItems='center'
+                columnGap={gap ? gap : '2.75px'}
+                height='fit-content'
+                marginTop='3.5'
+                paddingBottom='1.5'
+            >
                 <Link to={`/profile/${user.username}`} onClick={onClose}>
                     <Avatar
                         src={user.avatarUrl}
                         alt='profile-picture'
                         name={user.firstName}
+                        size='sm'
+                        marginRight='2'
                     />
                 </Link>
-                <Flex>
+                <Flex wrap='wrap'>
                     <Link to={`/profile/${user.username}`} onClick={onClose}>
-                        <Flex>
-                            <Text>
+                        <Flex flexDirection="column" flexGrow="1" width="100%">
+                            <Text width={{base:"fit-content", md: "11ch" }}>
                                 {`${user.firstName} ${user.lastName}`}
                             </Text>
-                            <Text>
+                            <Text marginTop="0" fontSize="sm">
                                 @{user.username}
                             </Text>
                         </Flex>
@@ -31,7 +40,12 @@ const UserCard = ({user, followButton, onClose, gap}) => {
                     {
                         followButton && (
                             <Button
+                                variant="solidPrimary"
                                 onClick={() => dispatch(followUser({followUserId : user._id, authToken, dispatch}))}
+                                width="4.25rem"
+                                height="2rem"
+                                borderRadius="full"
+                                fontSize="sm"
                             >
                                 Follow +
                             </Button>

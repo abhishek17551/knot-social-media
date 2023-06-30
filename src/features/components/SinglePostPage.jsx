@@ -5,6 +5,7 @@ import { Navigation } from "../../components/Navigation"
 import { Flex } from "@chakra-ui/react"
 import { DisplayPost } from "./DisplayPost"
 import { Comment } from "./Comment"
+import { displayCardStyle, flexMiddleContainerStyle, flexMiddleOuterContainerStyle, postCardStyle } from "../../styles"
 
 const SinglePostPage = () => {
     const {postId} = useParams()
@@ -19,16 +20,16 @@ const SinglePostPage = () => {
     return (
         <>
             <Navigation/>
-            <Flex>
+            <Flex {...flexMiddleOuterContainerStyle}>
                 {/* Sidebar here */}
                 {
                     post && (
-                        <Flex>
+                        <Flex {...flexMiddleContainerStyle}>
                             <DisplayPost post={post}/>
                             {
                                 post.comments && 
                                 post.comments.map((comment) => (
-                                    <Flex key={comment._id}>
+                                    <Flex key={comment._id} {...postCardStyle} {...displayCardStyle}>
                                         <Comment comment={comment} postId={post._id}/>
                                     </Flex>
                                 ))
@@ -41,3 +42,5 @@ const SinglePostPage = () => {
         </>
     )
 }
+
+export {SinglePostPage}
