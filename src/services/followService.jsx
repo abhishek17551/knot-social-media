@@ -8,4 +8,4 @@ const unfollowUserInServer = (followUserId, authorization) => {
     return axios.post(`/api/users/unfollow/${followUserId}`, {}, {headers : {authorization}})
 }
 
-export {followUser,unfollowUser}
+export {followUserInServer,unfollowUserInServer}

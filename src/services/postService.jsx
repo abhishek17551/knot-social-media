@@ -1,30 +1,32 @@
 import axios from "axios";
 
-const getAllPosts = () => axios.get("/api/posts");
+const getAllPostsFromServer = () => axios.get("/api/posts");
 
-const getPagedPosts = (pageNum) =>
+const getPagedPostsFromServer = (pageNum) =>
   axios.get(`/api/posts/page/${pageNum}`);
 
-const getAllPostsOfUser = (username) =>
+const getAllPostsOfUserFromServer = (username) =>
   axios.get(`/api/posts/user/${username}`);
 
-const editPost = (postData, authorization) =>
+const editPostInServer = (postData, authorization) =>
   axios.post(
     `/api/posts/edit/${postData._id}`,
     { postData },
     { headers: { authorization } }
   );
 
-const addPost = (postData, authorization) =>
+const addPostToServer = (postData, authorization) =>
   axios.post("/api/posts", { postData }, { headers: { authorization } });
 
-const likePost = (postId, authorization) =>
+const likePostInServer = (postId, authorization) =>
   axios.post(`/api/posts/like/${postId}`, {}, { headers: { authorization } });
 
-const dislikePost = (postId, authorization) => {
+const dislikePostInServer = (postId, authorization) => {
     return axios.post(
       `/api/posts/dislike/${postId}`,{},{ headers: { authorization }});
  };
   
-export {getAllPosts,getPagedPosts,getAllPostsOfUser,editPost,addPost,likePost,dislikePost}
+export {
+  getAllPostsFromServer,getPagedPostsFromServer,getAllPostsOfUserFromServer,editPostInServer,addPostToServer,likePostInServer,dislikePostInServer
+}
 
