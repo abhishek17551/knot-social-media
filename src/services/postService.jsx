@@ -25,8 +25,11 @@ const dislikePostInServer = (postId, authorization) => {
     return axios.post(
       `/api/posts/dislike/${postId}`,{},{ headers: { authorization }});
  };
+
+const deletePostFromServer = (postId, authorization) =>
+  axios.delete(`/api/posts/${postId}`, { headers: { authorization } });
   
 export {
-  getAllPostsFromServer,getPagedPostsFromServer,getAllPostsOfUserFromServer,editPostInServer,addPostToServer,likePostInServer,dislikePostInServer
+  getAllPostsFromServer,getPagedPostsFromServer,getAllPostsOfUserFromServer,editPostInServer,addPostToServer,likePostInServer,dislikePostInServer,deletePostFromServer
 }
 
