@@ -53,6 +53,8 @@ const CommentModal = ({postId, comment, editCommentContent}) => {
                     <MenuItem 
                         _hover={{background:"gray.500"}}
                         onClick={onOpen}
+                        background='inherit'
+                        _hover={{background : 'blue.300'}}
                     >
                         Edit
                     </MenuItem>
@@ -64,10 +66,11 @@ const CommentModal = ({postId, comment, editCommentContent}) => {
                 onClose={onClose}
                 size='md'
                 margin='3'
+                motionPreset="slideInRight"
             >
                 <ModalOverlay/>
                 <ModalContent width={{base:'90vw',md:'32.35rem'}}>
-                    <ModalHeader>
+                    <ModalHeader paddingBottom='0'>
                         Post Reply
                     </ModalHeader>
                     <ModalCloseButton
@@ -80,12 +83,13 @@ const CommentModal = ({postId, comment, editCommentContent}) => {
                     />
                     <ModalBody maxWidth='100%' paddingTop='0' paddingBottom='0'>
                         <Flex {...postCardStyle}>
-                            <HStack>
+                            <HStack alignItems='flex-start'>
                                 <Avatar
                                     src={authUser.avatarUrl}
                                     name={authUser.firstName}
                                     marginTop='2.5'
                                     marginRight='3.5'
+                                    size='md'
                                 />
                                 <Textarea
                                     value={content}
@@ -94,6 +98,9 @@ const CommentModal = ({postId, comment, editCommentContent}) => {
                                     height="8rem"
                                     width="100%"
                                     focusBorderColor="transparent"
+                                    outline='none'
+                                    border='none'
+                                    resize='none'
                                 />
                             </HStack>
                             <Divider/>
@@ -103,6 +110,7 @@ const CommentModal = ({postId, comment, editCommentContent}) => {
                                     onClick={onCommentClick}
                                     height="70%"
                                     alignSelf="center"
+                                    borderRadius='full'
                                     _hover={{
                                       bg: useColorModeValue("blue.800", "blue.200"),
                                     }}

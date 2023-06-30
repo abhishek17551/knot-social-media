@@ -82,6 +82,9 @@ const Comment = ({comment, postId}) => {
                                                     />
                                                     <MenuDivider/>
                                                     <MenuItem
+                                                        background='inherit'
+                                                        fontFamily='md'
+                                                        _hover={{background : 'blue.300'}}
                                                         onClick={() => {
                                                             dispatch(deleteComment({
                                                                 postId,commentId : comment._id,
