@@ -5,6 +5,10 @@ import { displayCardStyle, postCardStyle } from "../../styles"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart, faBookmark } from "@fortawesome/free-regular-svg-icons"
+import { deletePost, dislikePost, likePost } from "./postsSlice"
+import { addToBookmark, removeFromBookmark } from "../authentication/authenticationSlice"
+import { toast } from "react-toastify"
+import { CommentModal } from "./CommentModal"
 
 const DisplayPost = ({post}) => {
     const {createdAt,content,mediaURL,username} = post
@@ -18,7 +22,27 @@ const DisplayPost = ({post}) => {
             setUserDetails(users.filter((user) => user.username === username)[0])
     },[users,userName])
 
-    //add functionalities here!
+    //add on click functionalities here
+    const likedByUser = () => post.likes.likedBy.filter((user) => user._id === authUser._id).length !== 0;
+
+    const likeClickHandler = () => {
+        if(likedByUser())
+            dispatch(dislikePost({postId: post._id, authToken}))
+        else 
+            dispatch(likePost({postId: post._id, authToken}))
+    }
+
+    const bookmarkedByUser = () => authUser.bookmarks.filter((postId) => postId===post._id).length !== 0;
+
+    const bookmarkClickHandler = () => {
+        if(bookmarkedByUser()) {
+            dispatch(removeFromBookmark({postId: post._id, authToken}))
+            toast.success("Post removed from Bookmarks")
+        } else {
+            dispatch(addToBookmark({postId: post._id, authToken}));
+            toast.success("Post added to Bookmarks")
+        }
+    }
 
     return (
         <>
@@ -39,7 +63,7 @@ const DisplayPost = ({post}) => {
                                         ? authUser.avatarUrl
                                         : userDetails.avatarUrl
                                     }
-                                    alt="profile-image"
+                                    alt="profile-picture"
                                     size="md"
                                     marginRight="1.5"
                                     display="block"
@@ -129,7 +153,10 @@ const DisplayPost = ({post}) => {
                             onClick={(e) => bookmarkClickHandler(e)}
                             />
                             <Box>
-                                {/* Comment Here */}
+                                <CommentModal postId={post._id}/>
+                                {
+                                    post.commments.length > 0 && <span>{post.commments.length}</span>
+                                }
                             </Box>
                     </HStack>
                 </Flex>
