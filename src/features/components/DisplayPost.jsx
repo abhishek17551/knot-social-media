@@ -1,7 +1,7 @@
 import { Avatar, Box, Divider, Flex, HStack, IconButton, Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, useAccordion } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { displayCardStyle, postCardStyle } from "../../styles"
+import { displayCardStyle, fontAwesomeIconStyle, postCardStyle } from "../../styles"
 import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faHeart, faBookmark } from "@fortawesome/free-regular-svg-icons"
@@ -88,10 +88,19 @@ const DisplayPost = ({post}) => {
 
                             {authUser.username === userDetails.username && (
                                 <Menu>
-                                    <MenuButton>
-                                        <FontAwesomeIcon/>                                                                                                                                                                                          
+                                    <MenuButton
+                                        position='absolute'
+                                        background='transparent'
+                                        color='blue.800'
+                                        right='7'
+                                        _hover={{background : 'transparent'}}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon='ellipsis-h'
+                                            style={{...fontAwesomeIconStyle, padding:'6px'}}
+                                        />                                                                                                                                                                                          
                                     </MenuButton>
-                                    <MenuList>
+                                    <MenuList minWidth='8.25rem'>
                                         <MenuGroup>
                                             {/* Edit Post Here */}
                                             <MenuDivider/>
@@ -111,11 +120,11 @@ const DisplayPost = ({post}) => {
                         {
                             mediaURL && mediaURL.split("/")[4] === "image" ? (
                                 <Image
-                                src={mediaURL}
-                                maxHeight="20rem"
-                                objectFit="fill"
-                                marginLeft="0"
-                                width="100%" />
+                                    src={mediaURL}
+                                    maxHeight="20rem"
+                                    objectFit="fill"
+                                    marginLeft="0"
+                                    width="100%" />
                             ) : (
                                 mediaURL && (
                                     <video controls>
@@ -127,7 +136,7 @@ const DisplayPost = ({post}) => {
                     </Link>
                     <Divider/>
                     <HStack alignSelf="flex-start">
-                        <Flex>
+                        <Flex alignItems="center" flexDirection='column'>
                             <IconButton 
                                 variant="iconButton"
                                 icon = {
